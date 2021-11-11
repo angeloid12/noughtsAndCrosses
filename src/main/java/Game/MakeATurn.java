@@ -1,15 +1,17 @@
 package Game;
 
 public class MakeATurn {
-    private CurrentPlayer currentPlayer;
+    private Player playerOne;
+    private Player playerTwo;
+    private Player currentPlayer;
     private Board board;
-    private Inputs inputs;
     private BoardCheck boardCheck;
 
-    MakeATurn(CurrentPlayer currentPlayer, Board board, Inputs inputs, BoardCheck boardCheck){
-        this.currentPlayer = currentPlayer;
+    MakeATurn(Player playerOne, Player playerTwo, Board board, BoardCheck boardCheck){
+        this.playerOne = playerOne;
+        this.playerTwo = playerTwo;
+        this.currentPlayer = playerOne;
         this.board = board;
-        this.inputs = inputs;
         this.boardCheck = boardCheck;
     }
 
@@ -30,7 +32,7 @@ public class MakeATurn {
         board.showBoard();
         victoryCondition = boardCheck.check(field, currentPlayer.getSign(), board);
         if(victoryCondition == false){
-            currentPlayer.switchPlayers();
+            switchPlayers();
         }
         return victoryCondition;
     }
@@ -45,6 +47,14 @@ public class MakeATurn {
                     System.out.println("Draw!");
                 }
             }
+        }
+    }
+
+    public void switchPlayers(){
+        if (currentPlayer.equals(playerOne)) {
+            currentPlayer = playerTwo;
+        } else if (currentPlayer.equals(playerTwo)) {
+            currentPlayer = playerOne;
         }
     }
 
